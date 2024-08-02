@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -6,10 +5,8 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
-import Icon from "@mui/material/Icon";
 import MDBox from "../../../items/MDBox/MDBox";
-import MDInput from "../../../items/MDInput";
-import Breadcrumbs from "../../../components/Breadcrumbs";
+import MDTypography from "../../../items/MDTypography";
 import {
   navbar,
   navbarContainer,
@@ -23,10 +20,12 @@ import {
   setMiniSidenav,
   setOpenConfigurator,
 } from "../../../context";
-import { Home, MenuRounded, NotificationImportantRounded, Settings } from "@mui/icons-material";
+import man from '../../../assets/images/man.png';
+import { Home, MenuRounded, Settings } from "@mui/icons-material";
 import { MenuItem, MenuList } from "@mui/material";
+import typography from './../../../assets/theme/base/typography';
 
-function DashboardNavbar({ firstOption, secondOption, thridOption, absolute, light, isMini }) {
+function DashboardNavbar({ firstOption, secondOption, thirdOption, absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
@@ -40,14 +39,12 @@ function DashboardNavbar({ firstOption, secondOption, thridOption, absolute, lig
       setNavbarType("static");
     }
 
-    // A function that sets the transparent state of the navbar.
     function handleTransparentNavbar() {
       setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) || !fixedNavbar);
     }
 
     window.addEventListener("scroll", handleTransparentNavbar);
 
-    // Call the handleTransparentNavbar function to set the state with the initial value.
     handleTransparentNavbar();
 
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
@@ -58,7 +55,7 @@ function DashboardNavbar({ firstOption, secondOption, thridOption, absolute, lig
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
-  const renderMenu = ({ firstOption, secondOption, thridOption }) => (
+  const renderMenu = ({ firstOption, secondOption, thirdOption }) => (
     <Menu
       anchorEl={openMenu}
       anchorReference={null}
@@ -70,11 +67,10 @@ function DashboardNavbar({ firstOption, secondOption, thridOption, absolute, lig
       onClose={handleCloseMenu}
       sx={{ mt: 1 }}
     >
-      {firstOption} {secondOption} {thridOption}
+      {firstOption} {secondOption} {thirdOption}
     </Menu>
   );
 
-  // Styles for the navbar icons
   const iconsStyle = ({ palette: { dark, white, text }, functions: { rgba } }) => ({
     color: () => {
       let colorValue = light || darkMode ? white.main : dark.main;
@@ -94,20 +90,21 @@ function DashboardNavbar({ firstOption, secondOption, thridOption, absolute, lig
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
     >
       <Toolbar sx={(theme) => navbarContainer(theme)}>
-        <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
-          <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
-        </MDBox>
+        <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })} />
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-            {/* <MDBox pr={1}>
-              <MDInput label="Search here" />
-            </MDBox> */}
-            <MDBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in/basic">
-                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Home color={light ? "white" : "primary"} />
-                </IconButton>
-              </Link>
+            <MDBox color={light ? "white" : "inherit"} display="flex" alignItems="center">
+              <MDTypography variant="caption" mr={1}>
+                William Jaspornet
+              </MDTypography>
+              <MDBox
+                component="img"
+                src={man}
+                alt="William Jaspornet"
+                width="40px"
+                height="40px"
+                sx={{ borderRadius: '30%' }} 
+              />
               <IconButton
                 size="small"
                 disableRipple
@@ -115,31 +112,8 @@ function DashboardNavbar({ firstOption, secondOption, thridOption, absolute, lig
                 sx={navbarMobileMenu}
                 onClick={handleMiniSidenav}
               >
-                {miniSidenav} ? <MenuList color={light ? "white" : "primary"} /> : <MenuList color={light ? "white" : "primary"} />
-
+                {miniSidenav ? <MenuList color={light ? "white" : "primary"} /> : <MenuList color={light ? "white" : "primary"} />}
               </IconButton>
-              <IconButton
-                size="small"
-                disableRipple
-                color="inherit"
-                sx={navbarIconButton}
-                onClick={handleConfiguratorOpen}
-              >
-                <Settings color={light ? "white" : "primary"} />
-              </IconButton>
-              <IconButton
-                size="small"
-                disableRipple
-                color="inherit"
-                sx={navbarIconButton}
-                aria-controls="notification-menu"
-                aria-haspopup="true"
-                variant="contained"
-                onClick={handleOpenMenu}
-              >
-                <MenuRounded color={light ? "white" : "primary"} />
-              </IconButton>
-              {renderMenu({ firstOption, secondOption, thridOption })}
             </MDBox>
           </MDBox>
         )}

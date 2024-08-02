@@ -1,16 +1,18 @@
-import { DashboardRounded, LogoutRounded} from "@mui/icons-material";
+import { DashboardRounded, LogoutRounded } from "@mui/icons-material";
 import Logout from './layouts/authentication/presentation/pages/logout';
 import LoginPage from "./layouts/authentication/presentation/pages/login_page";
+import StudentsPage from "./layouts/student_management/presentation/pages/students_page";
+import studentImage from './assets/icons/student.png'
 
 export const companyManagerRoutes = [
   {
     type: "collapse",
-    name: "Home",
+    name: "Students' Data",
     key: "home",
-    icon: <DashboardRounded />,
+    icon: <img src={studentImage} alt="Student" style={{ width: 24, height: 24 }} />,
     route: "/home",
-    component: <LoginPage />
-  },  
+    component: <StudentsPage />
+  },
   {
     type: "collapse",
     name: "Logout",
@@ -23,9 +25,4 @@ export const companyManagerRoutes = [
     route: "/signin",
     component: <LoginPage />,
   },
-
-  // {
-  //   route: "/branch-Manage-Archive",
-  //   component: <BranchManagerArchive />
-  // },
 ];

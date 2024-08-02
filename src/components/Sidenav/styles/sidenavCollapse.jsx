@@ -1,3 +1,4 @@
+import colors from "../../../assets/theme/base/colors";
 
 function collapseItem(theme, ownerState) {
   const { palette, transitions, breakpoints, boxShadows, borders, functions } = theme;
@@ -9,9 +10,9 @@ function collapseItem(theme, ownerState) {
   const { pxToRem, rgba, linearGradient } = functions;
 
   return {
-    background: active
-      ? linearGradient(gradients[sidenavColor].main, gradients[sidenavColor].state)
-      : transparent.main,
+    backgroundColor: active
+      ? rgba(palette.primary.main, 0.08) 
+      : 'transparent',
     color:
       (transparentSidenav && !darkMode && !active) || (whiteSidenav && !active)
         ? dark.main
@@ -19,9 +20,9 @@ function collapseItem(theme, ownerState) {
     display: "flex",
     alignItems: "center",
     width: "100%",
-    padding: `${pxToRem(8)} ${pxToRem(10)}`,
-    margin: `${pxToRem(1.5)} ${pxToRem(16)}`,
-    borderRadius: borderRadius.md,
+    padding: `${pxToRem(8)} ${pxToRem(22)}`, 
+    margin: 0, 
+    borderRadius: 0, 
     cursor: "pointer",
     userSelect: "none",
     whiteSpace: "nowrap",
@@ -49,6 +50,7 @@ function collapseItem(theme, ownerState) {
     },
   };
 }
+
 
 function collapseIconBox(theme, ownerState) {
   const { palette, transitions, borders, functions } = theme;
@@ -94,6 +96,7 @@ function collapseText(theme, ownerState) {
     marginLeft: pxToRem(10),
 
     [breakpoints.up("xl")]: {
+      textDecoration: 'none', 
       opacity: miniSidenav || (miniSidenav && transparentSidenav) ? 0 : 1,
       maxWidth: miniSidenav || (miniSidenav && transparentSidenav) ? 0 : "100%",
       marginLeft: miniSidenav || (miniSidenav && transparentSidenav) ? 0 : pxToRem(10),
@@ -104,8 +107,9 @@ function collapseText(theme, ownerState) {
     },
 
     "& span": {
-      fontWeight: active ? fontWeightRegular : fontWeightLight,
-      fontSize: size.sm,
+      color:colors.black.main,
+      fontWeight: 500,
+      fontSize: 18,
       lineHeight: 0,
     },
   };

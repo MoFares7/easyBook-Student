@@ -1,14 +1,10 @@
 import axios from 'axios';
 import { getValue } from '../storage/storage';
 
-const BASE_URL = 'https://prime-shippa-api.point-dev.net/api/';
+const BASE_URL = 'https://taxiapp.easybooks.me:8283/';
 
 const axiosInstance = axios.create({
         baseURL: BASE_URL,
-        headers: {
-                'Content-Type': 'application/json',
-                'Content-Type': 'multipart/form-data',
-        },
 });
 
 axiosInstance.interceptors.request.use(

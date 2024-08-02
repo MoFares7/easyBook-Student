@@ -3,21 +3,20 @@ import colors from "../../../assets/theme/base/colors";
 
 import pxToRem from "../../../assets/theme/functions/pxToRem";
 
-const { white } = colors;
+const { black } = colors;
 
 const baseProperties = {
-  // fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   fontFamily: '"Work Sans", sans-serif',
   fontWeightLighter: 100,
   fontWeightLight: 300,
-  fontWeightRegular: 400,
+  fontWeightRegular: 500,
   fontWeightMedium: 600,
   fontWeightBold: 700,
   fontSizeXXS: pxToRem(10.4),
   fontSizeXS: 24,
   fontSizeSM: 20,
-  fontSizeMD: pxToRem(16),
-  fontSizeLG: pxToRem(18),
+  fontSizeMD: 16,
+  fontSizeLG: 35,
   fontSizeXL: pxToRem(20),
   fontSize2XL: pxToRem(24),
   fontSize3XL: pxToRem(30),
@@ -25,13 +24,13 @@ const baseProperties = {
 
 const baseHeadingProperties = {
   fontFamily: baseProperties.fontFamily,
-  color: white.main,
+  color: black.focus,
   fontWeight: baseProperties.fontWeightBold,
 };
 
 const baseDisplayProperties = {
   fontFamily: baseProperties.fontFamily,
-  color: white.main,
+  color: black.focus,
   fontWeight: baseProperties.fontWeightLight,
   lineHeight: 1.2,
 };
@@ -69,13 +68,13 @@ const typography = {
   },
 
   h5: {
-    fontSize: pxToRem(20),
+    fontSize: 24,
     lineHeight: 1.375,
     ...baseHeadingProperties,
   },
 
   h6: {
-    fontSize: pxToRem(16),
+    fontSize: 20,
     lineHeight: 1.625,
     ...baseHeadingProperties,
   },
@@ -113,7 +112,6 @@ const typography = {
     fontSize: baseProperties.fontSizeMD,
     fontWeight: baseProperties.fontWeightLight,
     lineHeight: 1.5,
-    textTransform: "uppercase",
   },
 
   caption: {

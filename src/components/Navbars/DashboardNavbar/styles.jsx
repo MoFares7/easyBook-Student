@@ -1,3 +1,4 @@
+import colors from "../../../assets/theme/base/colors";
 
 function navbar(theme, ownerState) {
   const { palette, boxShadows, functions, transitions, breakpoints, borders } = theme;
@@ -13,7 +14,7 @@ function navbar(theme, ownerState) {
     backdropFilter: transparentNavbar || absolute ? "none" : `saturate(200%) blur(${pxToRem(30)})`,
     backgroundColor:
       transparentNavbar || absolute
-        ? `${transparent.main} !important`
+        ? `${colors.white.main} !important`
         : rgba(darkMode ? background.default : white.main, 0.8),
 
     color: () => {
@@ -29,11 +30,10 @@ function navbar(theme, ownerState) {
 
       return color;
     },
-    top: absolute ? 0 : pxToRem(12),
-    minHeight: pxToRem(75),
+    top: absolute ? 0 : 0,
+    height: 63,
     display: "grid",
     alignItems: "center",
-    borderRadius: borderRadius.xl,
     paddingTop: pxToRem(8),
     paddingBottom: pxToRem(8),
     paddingRight: absolute ? pxToRem(8) : 0,
@@ -104,7 +104,7 @@ const navbarIconButton = ({ typography: { size }, breakpoints }) => ({
     [breakpoints.up("sm")]: {
       display: "inline-block",
       lineHeight: 1.2,
-      ml: 0.5,
+      // ml: 0.5,
     },
   },
 });

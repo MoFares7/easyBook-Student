@@ -4,21 +4,16 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Icon from "@mui/material/Icon";
 import MDBox from "../../items/MDBox/MDBox";
-import {
-  collapseItem,
-  collapseIconBox,
-  collapseIcon,
-  collapseText,
-} from "../../components/Sidenav/styles/sidenavCollapse";
-
+import { collapseItem, collapseIconBox, collapseIcon, collapseText } from "../../components/Sidenav/styles/sidenavCollapse";
 import { useMaterialUIController } from "../../context";
+import colors from "../../assets/theme/base/colors";
 
 function SidenavCollapse({ icon, name, active, ...rest }) {
   const [controller] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
 
   return (
-    <ListItem component="li">
+    <ListItem component="li" sx={{ width: '100%', padding: 0, textDecoration: 'none', }}> 
       <MDBox
         {...rest}
         sx={(theme) =>
@@ -45,15 +40,23 @@ function SidenavCollapse({ icon, name, active, ...rest }) {
 
         <ListItemText
           primary={name}
-          sx={(theme) =>
-            collapseText(theme, {
+          sx={(theme) => ({
+            ...collapseText(theme, {
               miniSidenav,
               transparentSidenav,
               whiteSidenav,
               active,
-            })
-          }
+            }),
+            '& .MuiListItemText-primary': {
+              textDecoration: 'none', // Ensure no underline
+              color: colors.black.main,
+              textDecoration: 'none',
+
+            }
+          })}
         />
+
+
       </MDBox>
     </ListItem>
   );
