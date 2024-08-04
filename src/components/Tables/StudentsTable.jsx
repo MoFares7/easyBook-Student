@@ -325,6 +325,7 @@ export default function StudentsTable({ students, loading, error, onDelete }) {
                                                 noteTitle={translations.dialogs.deleteNoteTitle}
                                                 titleButtonOperation={translations.dialogs.deleteButton}
                                                 titleButtonCancel={translations.cancel}
+                                                colorTitle={colors.error.main}
                                         />
                                 )
                         }
