@@ -6,7 +6,7 @@ import PrimaryButton from '../../items/MDButton';
 import borders from '../../assets/theme/base/borders';
 import MDBox from '../../items/MDBox/MDBox';
 
-const MainDialog = ({ open, handleClose, isLoading, handleOperationService, titleButtonOperation, titleButtonCancel, headerIcon, initialColor, headerTitle, subTitle, noteTitle }) => {
+const MainDialog = ({ open, colorTitle, handleClose, isLoading, handleOperationService, titleButtonOperation, titleButtonCancel, headerIcon, initialColor, headerTitle, subTitle, noteTitle }) => {
 
         return (
                 <Dialog open={open} onClose={handleClose} sx={{
@@ -58,7 +58,7 @@ const MainDialog = ({ open, handleClose, isLoading, handleOperationService, titl
                                         title={titleButtonCancel}
                                         borderColor={initialColor}
                                         backgroundColor={colors.transparent.main}
-                                        colorTitle={colors.error.focus}
+                                        colorTitle={colorTitle === '' ? colors.error.focus : colorTitle}
                                         onClick={handleClose}
                                 />
                         </DialogActions>

@@ -34,6 +34,7 @@ function Logout() {
                                 handleOperationService={handleConfirmLogout}
                                 titleButtonOperation={translations.Logout}
                                 titleButtonCancel={translations.cancel}
+                                colorTitle={colors.primary.state}
                                 headerIcon={logout}
                                 initialColor={colors.primary.state}
                                 headerTitle={translations['Sign out']}
