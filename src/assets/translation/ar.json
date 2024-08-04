@@ -52,6 +52,7 @@
   "SignIn": "تسجيل الدخول",
   "Signing In...": "جاري تسجيل الدخول",
   "Logout": "تسجيل الخروج",
+  "LoginfailedPleasetryagain": "حدث خطأ أثناء عملية المصادقة",
   "Sign out": "الخروج من التطبيق",
   "Are you sure you would like to sign out of your account?": "هل أنت متأكد من تسجيل الخروج"
 }

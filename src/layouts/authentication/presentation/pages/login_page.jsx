@@ -18,7 +18,8 @@ import { authLogin } from '../../services/login_service';
 import { useNavigate } from 'react-router-dom';
 import { getValue, setValue } from '../../../../core/storage/storage';
 import MDDropDownField from '../../../../items/MDDropDown';
-import { t } from 'i18next';
+import arTranslations from '../../../../assets/translation/ar.json';
+import enTranslations from '../../../../assets/translation/en.json';
 
 function Basic() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function Basic() {
   const { loading, error } = useSelector(state => state.authLogin);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [language, setLanguage] = useState(getValue('lang') || 'en');
+  const translations = language === 'ar' ? arTranslations : enTranslations;
 
   useEffect(() => {
   }, [language]);
@@ -162,7 +164,7 @@ function Basic() {
               }}
             >
               <MDTypography typography={typography.h2} color={colors.black.main} fontWeight={600}>
-                {t("Login")}
+                {translations.Login}
               </MDTypography>
 
               <MDBox component="form" noValidate onSubmit={handleLoginToSystem} sx={{ mt: 1 }}>
@@ -170,7 +172,7 @@ function Basic() {
                   margin={'1rem 0'}
                   isFulWidth={true}
                   value={username}
-                  label={t("username")}
+                  label={translations.username}
                   onChange={(e) => setUsername(e.target.value)}
                   error={!!errors.username}
                 />
@@ -180,7 +182,7 @@ function Basic() {
                   margin={'1rem 0'}
                   isFulWidth={true}
                   value={password}
-                  label={t("password")}
+                  label={translations.password}
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
                   error={!!errors.password}
@@ -199,7 +201,7 @@ function Basic() {
                   }}
                   disabled={loading}
                 >
-                  {loading ? t('Signing In...') :  t('SignIn') }
+                  {loading ? translations['Signing In...'] :  translations.SignIn }
                 </Button>
               </MDBox>
             </MDBox>
@@ -212,7 +214,7 @@ function Basic() {
           onClose={handleSnackbarClose}
         >
           <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
-            {error || "Login failed. Please try again."}
+            {error || translations.LoginfailedPleasetryagain}
           </Alert>
         </Snackbar>
       </ThemeProvider>

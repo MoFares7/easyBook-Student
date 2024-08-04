@@ -53,5 +53,6 @@
   "Signing In...":"Signing In...",
   "Logout": "Logout",
   "Sign out": "Sign out",
+  "LoginfailedPleasetryagain":"Login failed. Please try again.",
   "Are you sure you would like to sign out of your account?": "Are you sure you would like to sign out of your account?"
 }
