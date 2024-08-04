@@ -148,7 +148,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
         };
 
         const formatGrades = (grades) => {
-                const cultureCode = i18n.language === 'ar' ? 1 : 0;
+                const cultureCode = language === 'ar' ? 1 : 0;
                 return grades.map(grade => {
                         const translation = (grade.translations && Array.isArray(grade.translations))
                                 ? grade.translations.find(t => t.cultureCode === cultureCode)
@@ -162,7 +162,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
         };
 
         const formatGenders = (genders) => {
-                const cultureCode = i18n.language === 'ar' ? 1 : 0;
+                const cultureCode = language === 'ar' ? 1 : 0;
                 return genders.map(gender => {
                         const translation = (gender.translations && Array.isArray(gender.translations))
                                 ? gender.translations.find(t => t.cultureCode === cultureCode)
@@ -174,6 +174,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                         };
                 });
         };
+
 
         return (
                 <Dialog
