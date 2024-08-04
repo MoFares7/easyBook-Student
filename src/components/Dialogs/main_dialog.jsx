@@ -4,10 +4,9 @@ import { useDispatch } from 'react-redux';
 import colors from '../../assets/theme/base/colors';
 import PrimaryButton from '../../items/MDButton';
 import borders from '../../assets/theme/base/borders';
-import { t } from 'i18next';
 import MDBox from '../../items/MDBox/MDBox';
 
-const MainDialog = ({ open, handleClose, isLoading, handleOperationService, titleButtonOperation, headerIcon, initialColor, headerTitle, subTitle, noteTitle }) => {
+const MainDialog = ({ open, handleClose, isLoading, handleOperationService, titleButtonOperation, titleButtonCancel, headerIcon, initialColor, headerTitle, subTitle, noteTitle }) => {
 
         return (
                 <Dialog open={open} onClose={handleClose} sx={{
@@ -56,7 +55,7 @@ const MainDialog = ({ open, handleClose, isLoading, handleOperationService, titl
                                         width={"100%"}
                                         hPadding={1}
                                         wPadding={1}
-                                        title={t("cancel")}
+                                        title={titleButtonCancel}
                                         borderColor={initialColor}
                                         backgroundColor={colors.transparent.main}
                                         colorTitle={colors.black.focus}

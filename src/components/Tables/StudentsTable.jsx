@@ -324,6 +324,7 @@ export default function StudentsTable({ students, loading, error, onDelete }) {
                                                 subTitle={translations.dialogs.deleteSubtitle}
                                                 noteTitle={translations.dialogs.deleteNoteTitle}
                                                 titleButtonOperation={translations.dialogs.deleteButton}
+                                                titleButtonCancel={translations.cancel}
                                         />
                                 )
                         }

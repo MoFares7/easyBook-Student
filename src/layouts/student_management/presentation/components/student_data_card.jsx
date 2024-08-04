@@ -12,9 +12,11 @@ import filter from '../../../../assets/icons/Filter.svg';
 import StudentsTable from './../../../../components/Tables/StudentsTable';
 import borders from '../../../../assets/theme/base/borders';
 import AnimatedCard from './../../../../utils/animation';
+import { getValue } from '../../../../core/storage/storage';
+import arTranslations from '../../../../assets/translation/ar.json';
+import enTranslations from '../../../../assets/translation/en.json';
 
 const StudentDataCard = ({
-        t,
         handleClickOpen,
         handleSearchChange,
         handleDateChange,
@@ -28,6 +30,10 @@ const StudentDataCard = ({
         error,
         handleOpenRemoveDialog
 }) => {
+
+        const language = getValue("lang") || 'en';
+        const translations = language === 'ar' ? arTranslations : enTranslations;
+
         return (
                 <AnimatedCard animationType='slideInLeft'>
                         <MDBox sx={{
@@ -41,9 +47,9 @@ const StudentDataCard = ({
                                         p: 1,
                                         justifyContent: 'space-between'
                                 }}>
-                                        <MDTypography typography={typography.body1} sx={{ color: colors.black.focus }}>{t('studentData')}</MDTypography>
+                                        <MDTypography typography={typography.body1} sx={{ color: colors.black.focus }}>{translations.studentData}</MDTypography>
                                         <PrimaryButton
-                                                title={t("addStudent")}
+                                                title={translations.addStudent}
                                                 backgroundColor={colors.primary.state}
                                                 colorTitle={colors.white.main}
                                                 hPadding={0}
@@ -66,7 +72,7 @@ const StudentDataCard = ({
                                                 <Icon>
                                                         <img src={filter} alt="Filter" style={{ width: 25, height: 25 }} />
                                                 </Icon>
-                                                <MDTypography typography={typography.body2} sx={{ color: colors.primary.state }}>{t('filterBy')}</MDTypography>
+                                                <MDTypography typography={typography.body2} sx={{ color: colors.primary.state }}>{translations.filterBy}</MDTypography>
                                         </MDBox>
                                         <MDBox sx={{
                                                 display: {
@@ -77,7 +83,7 @@ const StudentDataCard = ({
                                         }}>
                                                 <MDTextField
                                                         isFulWidth={true}
-                                                        hintText={t("searchHint")}
+                                                        hintText={translations.searchHint}
                                                         height={'3%'}
                                                         onChange={handleSearchChange}
                                                         icon={<Search />}
@@ -86,8 +92,8 @@ const StudentDataCard = ({
                                                         isFulWidth
                                                         value={formatDate(dateFilter)}
                                                         onChange={handleDateChange}
-                                                        hintText={t("chooseHint")}
-                                                        menuOptions={[t('none'), t('equalTo'), t('greaterThan'), t('lessThan')]}
+                                                        hintText={translations.chooseHint}
+                                                        menuOptions={[translations.none, translations.equalTo, translations.greaterThan, translations.lessThan]}
                                                         onMenuOptionClick={setFilterType}
                                                         filterType={filterType}
                                                         error={false}
@@ -98,12 +104,12 @@ const StudentDataCard = ({
                                 <Divider sx={{ my: 2 }} />
 
                                 <MDBox>
-                                                <StudentsTable
-                                                        students={filteredStudents.length ? filteredStudents : students}
-                                                        loading={loading}
-                                                        error={error}
-                                                        onDelete={handleOpenRemoveDialog}
-                                                />
+                                        <StudentsTable
+                                                students={filteredStudents.length ? filteredStudents : students}
+                                                loading={loading}
+                                                error={error}
+                                                onDelete={handleOpenRemoveDialog}
+                                        />
                                 </MDBox>
                         </MDBox>
                 </AnimatedCard>

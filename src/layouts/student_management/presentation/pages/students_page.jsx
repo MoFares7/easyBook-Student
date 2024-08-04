@@ -1,16 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import DashboardLayout from './../../../../components/LayoutContainers/DashboardLayout/index';
 import DashboardNavbar from './../../../../components/Navbars/DashboardNavbar/index';
 import StudentDialog from '../components/student_dialog';
 import { getStudentsService } from '../../services/get_student_service';
 import debounce from 'lodash.debounce';
 import StudentDataCard from '../components/student_data_card';
-import { removeValue } from '../../../../core/storage/storage';
 
 const StudentsPage = () => {
-        const { t } = useTranslation();
         const dispatch = useDispatch();
         const [dateFilter, setDateFilter] = useState('');
         const [filterType, setFilterType] = useState('None');
@@ -23,7 +20,6 @@ const StudentsPage = () => {
         const studentsState = useSelector((state) => state.getStudentsService);
         const { data: students, loading, error } = studentsState;
 
-        // removeValue('lang')
         useEffect(() => {
                 dispatch(getStudentsService());
         }, [dispatch]);
@@ -114,7 +110,6 @@ const StudentsPage = () => {
                         <DashboardNavbar />
 
                         <StudentDataCard
-                                t={t}
                                 handleClickOpen={handleClickOpen}
                                 handleSearchChange={handleSearchChange}
                                 handleDateChange={handleDateChange}

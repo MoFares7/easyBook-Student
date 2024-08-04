@@ -14,7 +14,9 @@ import { getGradesService } from '../../services/get_grades_services';
 import { getGendersService } from '../../services/get_genders_service';
 import { modifyStudentService } from '../../services/modify_student_service';
 import i18n from '../../../../../i18.';
-import { t } from 'i18next';
+import { getValue } from '../../../../core/storage/storage';
+import arTranslations from '../../../../assets/translation/ar.json';
+import enTranslations from '../../../../assets/translation/en.json';
 
 const StudentDialog = ({ open, handleClose, student }) => {
         const [studentFirstName, setStudentFirstName] = useState('');
@@ -34,6 +36,9 @@ const StudentDialog = ({ open, handleClose, student }) => {
         const { loading: modifyStudentLoading, modifyStudentError } = useSelector((state) => state.modifyStudentService);
         const { data: grades = [], loading: gradesLoading, error: gradesError } = useSelector((state) => state.getGradesService);
         const { data: gender = [], loading: genderLoading, error: genderError } = useSelector((state) => state.getGendersService);
+
+        const language = getValue("lang") || 'en';
+        const translations = language === 'ar' ? arTranslations : enTranslations;
 
         useEffect(() => {
                 if (student) {
@@ -66,7 +71,6 @@ const StudentDialog = ({ open, handleClose, student }) => {
                 let valid = true;
                 let newErrors = {};
 
-                // Validation checks
                 if (!studentFirstName) {
                         newErrors.studentFirstName = t('validation.required', { field: t('first_name') });
                         valid = false;
@@ -185,7 +189,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                         }}
                 >
                         <DialogTitle sx={{ fontSize: '30px', fontWeight: 600 }}>
-                                {isEditing ? t('edit_student') : t('add_student')}
+                                {isEditing ? translations.edit_student : translations.add_student}
                         </DialogTitle>
                         <MDBox sx={{ px: 2 }}>
                                 <MDBox sx={{ width: '100%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
@@ -193,7 +197,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                                 <MDTextField
                                                         margin={'1rem 0'}
                                                         isFulWidth={true}
-                                                        label={t('first_name')}
+                                                        label={translations.first_name}
                                                         labelColor={colors.black.main}
                                                         error={errors.studentFirstName}
                                                         value={studentFirstName}
@@ -204,7 +208,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                                 <MDTextField
                                                         margin={'1rem 0'}
                                                         isFulWidth={true}
-                                                        label={t('last_name')}
+                                                        label={translations.last_name}
                                                         labelColor={colors.black.main}
                                                         error={errors.studentLastName}
                                                         value={studentLastName}
@@ -217,7 +221,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                                 <MDTextField
                                                         margin={'1rem 0'}
                                                         isFulWidth={true}
-                                                        label={t('birth_date')}
+                                                        label={translations.birth_date}
                                                         labelColor={colors.black.main}
                                                         type="date"
                                                         error={errors.studentBirthDate}
@@ -230,7 +234,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                                         isFulWidth={true}
                                                         margin={'1rem 0'}
                                                         isFullWidth={true}
-                                                        label={t('educational_level')}
+                                                        label={translations.educational_level}
                                                         labelColor={colors.black.main}
                                                         error={errors.studentEducationalLevel}
                                                         value={studentEducationalLevel}
@@ -245,7 +249,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                                         isFulWidth={true}
                                                         margin={'1.1rem 0'}
                                                         isFullWidth={true}
-                                                        label={t('country')}
+                                                        label={translations.country}
                                                         labelColor={colors.black.main}
                                                         error={errors.studentCountry}
                                                         value={studentCountry}
@@ -258,7 +262,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                                         isFulWidth={true}
                                                         margin={'1.1rem 0'}
                                                         isFullWidth={true}
-                                                        label={t('city')}
+                                                        label={translations.city}
                                                         labelColor={colors.black.main}
                                                         error={errors.studentCity}
                                                         value={studentCity}
@@ -273,7 +277,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                                         type={"number"}
                                                         margin={'1rem 0'}
                                                         isFulWidth={true}
-                                                        label={t('mobile')}
+                                                        label={translations.mobile}
                                                         labelColor={colors.black.main}
                                                         error={errors.studentMobile}
                                                         value={studentMobile}
@@ -285,7 +289,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                                         isFulWidth={true}
                                                         margin={'1rem 0'}
                                                         isFullWidth={true}
-                                                        label={t('gender')}
+                                                        label={translations.gender}
                                                         labelColor={colors.black.main}
                                                         error={errors.studentGender}
                                                         value={studentGender}
@@ -298,7 +302,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                         <MDTextField
                                                 margin={'1rem 0'}
                                                 isFulWidth={true}
-                                                label={t('note')}
+                                                label={translations.note}
                                                 labelColor={colors.black.main}
                                                 error={errors.studentNote}
                                                 value={studentNote}
@@ -311,7 +315,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                         width={"100%"}
                                         hPadding={1}
                                         wPadding={1}
-                                        title={isEditing ? t('modify') : t('add_student')}
+                                        title={isEditing ? translations.modify : translations.add_student}
                                         borderColor={colors.primary.state}
                                         backgroundColor={colors.primary.state}
                                         colorTitle={colors.white.main}
@@ -323,7 +327,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                         width={"100%"}
                                         hPadding={1}
                                         wPadding={1}
-                                        title={t('cancel')}
+                                        title={translations.cancel}
                                         borderColor={colors.primary.state}
                                         backgroundColor={colors.transparent.main}
                                         colorTitle={colors.primary.state}

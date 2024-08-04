@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { removeValue } from '../../../../core/storage/storage';
+import { getValue, removeValue } from '../../../../core/storage/storage';
 import MainDialog from '../../../../components/Dialogs/main_dialog';
 import logout from '../../../../assets/icons/signout.svg'
 import colors from '../../../../assets/theme/base/colors';
-import { t } from 'i18next';
+import arTranslations from '../../../../assets/translation/ar.json'
+import enTranslations from '../../../../assets/translation/en.json'
 
 function Logout() {
-        const dispatch = useDispatch();
+        const language = getValue("lang") || 'en';
+        const translations = language === 'ar' ? arTranslations : enTranslations;
+
         const navigate = useNavigate();
         const [dialogOpen, setDialogOpen] = useState(true);
 
         const handleCloseDialog = () => {
                 setDialogOpen(false);
-                 navigate("/home")
+                navigate("/home")
         };
 
         const handleConfirmLogout = () => {
@@ -29,13 +32,14 @@ function Logout() {
                                 open={dialogOpen}
                                 handleClose={handleCloseDialog}
                                 handleOperationService={handleConfirmLogout}
-                                titleButtonOperation={t("Logout")}
+                                titleButtonOperation={translations.Logout}
+                                titleButtonCancel={translations.cancel}
                                 headerIcon={logout}
                                 initialColor={colors.primary.state}
-                                headerTitle={t("Sign out")}
-                                subTitle={t("Are you sure you would like to sign out of your account?")}
+                                headerTitle={translations['Sign out']}
+                                subTitle={translations['Are you sure you would like to sign out of your account?']}
                         />
-                        
+
                 </>
         );
 }
