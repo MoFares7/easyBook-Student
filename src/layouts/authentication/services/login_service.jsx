@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../../core/network/api';
-import { setValue } from '../../../core/storage/storage';
+import { getValue, setValue } from '../../../core/storage/storage';
+const lang = getValue('lang');
 
 export const authLogin = createAsyncThunk(
         'authLogin',
@@ -11,8 +12,10 @@ export const authLogin = createAsyncThunk(
                                         'Content-Type': 'application/json',
                                 },
                         });
-                        console.log("authLogin success: ", response.data);
                         setValue('token', response.data.token);
+                        if (lang === null || lang === "") {
+                                setValue('lang', 'en');
+                        }
                         return response.data;
                 } catch (error) {
                         if (error.response) {

@@ -40,14 +40,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
 
-  // const handleLanguageChange = (event) => {
-  
-  //   // i18n.changeLanguage(selectedLanguage);
-
-  //   // const newDirection = selectedLanguage === 'ar' ? 'rtl' : 'ltr';
-  //   // setDirection(dispatch, newDirection);
-  // };
-
   const handleLanguageChange = (event) => {
     const selectedLanguage = event.target.value;
     setLanguage(selectedLanguage);

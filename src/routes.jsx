@@ -19,9 +19,7 @@ export const routes = [
     route: "/home",
     component: <StudentsPage />
   },
-   {
-    type: "collapse",
-  }, {
+    {
     type: "collapse",
   }, {
     type: "collapse",
