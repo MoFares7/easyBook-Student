@@ -7,6 +7,7 @@ import StudentDialog from '../components/student_dialog';
 import { getStudentsService } from '../../services/get_student_service';
 import debounce from 'lodash.debounce';
 import StudentDataCard from '../components/student_data_card';
+import { removeValue } from '../../../../core/storage/storage';
 
 const StudentsPage = () => {
         const { t } = useTranslation();
@@ -22,6 +23,7 @@ const StudentsPage = () => {
         const studentsState = useSelector((state) => state.getStudentsService);
         const { data: students, loading, error } = studentsState;
 
+        removeValue('lang')
         useEffect(() => {
                 dispatch(getStudentsService());
         }, [dispatch]);
