@@ -319,7 +319,6 @@ export default function StudentsTable({ students, loading, error, onDelete }) {
                                                 handleOperationService={handleDeleteConfirm}
                                                 isLoading={deleteLoading}
                                                 initialColor={colors.error.main}
-                                                
                                                 headerIcon={removeIcon}
                                                 headerTitle={translations.dialogs.deleteTitle}
                                                 subTitle={translations.dialogs.deleteSubtitle}

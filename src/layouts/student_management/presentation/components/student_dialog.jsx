@@ -13,7 +13,6 @@ import { addStudentService } from '../../services/add_student_service';
 import { getGradesService } from '../../services/get_grades_services';
 import { getGendersService } from '../../services/get_genders_service';
 import { modifyStudentService } from '../../services/modify_student_service';
-import i18n from '../../../../../i18.';
 import { getValue } from '../../../../core/storage/storage';
 import arTranslations from '../../../../assets/translation/ar.json';
 import enTranslations from '../../../../assets/translation/en.json';

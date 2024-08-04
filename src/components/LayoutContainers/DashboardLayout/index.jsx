@@ -1,12 +1,7 @@
-
 import { useEffect } from "react";
-
 import { useLocation } from "react-router-dom";
-
 import PropTypes from "prop-types";
-
 import MDBox from "../../../items/MDBox/MDBox";
-
 import { useMaterialUIController, setLayout } from "../../../context";
 import { getValue } from "../../../core/storage/storage";
 

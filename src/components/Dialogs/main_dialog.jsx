@@ -57,8 +57,8 @@ const MainDialog = ({ open, handleClose, isLoading, handleOperationService, titl
                                         wPadding={1}
                                         title={titleButtonCancel}
                                         borderColor={initialColor}
-                                        backgroundColor={colors.error.main}
-                                        colorTitle={colors.black.focus}
+                                        backgroundColor={colors.transparent.main}
+                                        colorTitle={colors.error.focus}
                                         onClick={handleClose}
                                 />
                         </DialogActions>

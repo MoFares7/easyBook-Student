@@ -6,6 +6,7 @@ import StudentDialog from '../components/student_dialog';
 import { getStudentsService } from '../../services/get_student_service';
 import debounce from 'lodash.debounce';
 import StudentDataCard from '../components/student_data_card';
+import { getValue } from '../../../../core/storage/storage';
 
 const StudentsPage = () => {
         const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const StudentsPage = () => {
         const studentsState = useSelector((state) => state.getStudentsService);
         const { data: students, loading, error } = studentsState;
 
+        console.log(getValue('lang'))
         useEffect(() => {
                 dispatch(getStudentsService());
         }, [dispatch]);
