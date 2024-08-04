@@ -175,7 +175,6 @@ const StudentDialog = ({ open, handleClose, student }) => {
                 });
         };
 
-
         return (
                 <Dialog
                         open={open}
