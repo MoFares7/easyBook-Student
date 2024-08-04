@@ -23,7 +23,7 @@ const StudentsPage = () => {
         const studentsState = useSelector((state) => state.getStudentsService);
         const { data: students, loading, error } = studentsState;
 
-        removeValue('lang')
+        // removeValue('lang')
         useEffect(() => {
                 dispatch(getStudentsService());
         }, [dispatch]);
