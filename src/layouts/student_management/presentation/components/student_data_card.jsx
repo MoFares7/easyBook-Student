@@ -15,6 +15,7 @@ import AnimatedCard from './../../../../utils/animation';
 import { getValue } from '../../../../core/storage/storage';
 import arTranslations from '../../../../assets/translation/ar.json';
 import enTranslations from '../../../../assets/translation/en.json';
+import EmptyCard from '../../../../components/handleState/empty_card';
 
 const StudentDataCard = ({
         handleClickOpen,
@@ -28,7 +29,8 @@ const StudentDataCard = ({
         students,
         loading,
         error,
-        handleOpenRemoveDialog
+        handleOpenRemoveDialog,
+        noMatchesFound
 }) => {
 
         const language = getValue("lang") || 'en';
@@ -104,12 +106,13 @@ const StudentDataCard = ({
                                 <Divider sx={{ my: 2 }} />
 
                                 <MDBox>
-                                        <StudentsTable
-                                                students={filteredStudents.length ? filteredStudents : students}
-                                                loading={loading}
-                                                error={error}
-                                                onDelete={handleOpenRemoveDialog}
-                                        />
+                                        {noMatchesFound ? (
+                                                <EmptyCard
+                                                        message={translations.NotFoundanyResult}
+                                                />
+                                        ) : (
+                                                <StudentsTable students={filteredStudents} handleOpenRemoveDialog={handleOpenRemoveDialog} />
+                                        )}
                                 </MDBox>
                         </MDBox>
                 </AnimatedCard>

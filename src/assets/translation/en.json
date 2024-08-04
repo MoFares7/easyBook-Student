@@ -50,9 +50,10 @@
   "username": "Username",
   "password": "Password",
   "SignIn": "Sign In",
-  "Signing In...":"Signing In...",
+  "Signing In...": "Signing In...",
   "Logout": "Logout",
   "Sign out": "Sign out",
-  "LoginfailedPleasetryagain":"Login failed. Please try again.",
+  "LoginfailedPleasetryagain": "Login failed. Please try again.",
+  "NotFoundanyResult": "Not Found any Result",
   "Are you sure you would like to sign out of your account?": "Are you sure you would like to sign out of your account?"
 }

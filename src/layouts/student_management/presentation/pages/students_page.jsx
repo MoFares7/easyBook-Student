@@ -6,7 +6,6 @@ import StudentDialog from '../components/student_dialog';
 import { getStudentsService } from '../../services/get_student_service';
 import debounce from 'lodash.debounce';
 import StudentDataCard from '../components/student_data_card';
-import { getValue } from '../../../../core/storage/storage';
 
 const StudentsPage = () => {
         const dispatch = useDispatch();
@@ -21,7 +20,6 @@ const StudentsPage = () => {
         const studentsState = useSelector((state) => state.getStudentsService);
         const { data: students, loading, error } = studentsState;
 
-        console.log(getValue('lang'))
         useEffect(() => {
                 dispatch(getStudentsService());
         }, [dispatch]);
@@ -48,6 +46,12 @@ const StudentsPage = () => {
 
         const handleDateChange = (event) => {
                 setDateFilter(event.target.value);
+                console.log('Date filter set to:', event.target.value);
+        };
+
+        const handleFilterTypeChange = (newFilterType) => {
+                setFilterType(newFilterType);
+                console.log('Filter type set to:', newFilterType);
         };
 
         const handleClickOpen = () => {
@@ -87,25 +91,46 @@ const StudentsPage = () => {
 
                         if (dateFilter && filterType !== 'None') {
                                 const filterDate = new Date(dateFilter);
+                                filterDate.setHours(0, 0, 0, 0);
+
+                                if (isNaN(filterDate.getTime())) {
+                                        console.error("Invalid filter date:", dateFilter);
+                                        return;
+                                }
+
                                 filtered = filtered.filter(student => {
                                         const studentDate = new Date(student.birthDate);
+                                        studentDate.setHours(0, 0, 0, 0);
+
+                                        if (isNaN(studentDate.getTime())) {
+                                                console.error("Invalid student birth date:", student.birthDate);
+                                                return false;
+                                        }
+
+                                        console.log('Filtering student:', student.firstName, student.birthDate);
+                                        console.log('Filter date:', filterDate);
+                                        console.log('Student date:', studentDate);
 
                                         switch (filterType) {
                                                 case 'Equal to':
-                                                        return studentDate.toDateString() === filterDate.toDateString();
+                                                        return studentDate.getTime() === filterDate.getTime();
                                                 case 'Greater than':
-                                                        return studentDate > filterDate;
-                                                case 'Less than':
                                                         return studentDate < filterDate;
+                                                case 'Less than':
+                                                        return studentDate > filterDate;
                                                 default:
                                                         return true;
                                         }
                                 });
                         }
 
+                        console.log('Filtered students:', filtered);
+
                         setFilteredStudents(filtered);
                 }
         }, [students, searchTerm, dateFilter, filterType]);
+
+        const noMatchesFound = filteredStudents.length === 0;
 
         return (
                 <DashboardLayout>
@@ -118,12 +143,13 @@ const StudentsPage = () => {
                                 formatDate={formatDate}
                                 dateFilter={dateFilter}
                                 filterType={filterType}
-                                setFilterType={setFilterType}
+                                setFilterType={handleFilterTypeChange}
                                 filteredStudents={filteredStudents}
                                 students={students}
                                 loading={loading}
                                 error={error}
                                 handleOpenRemoveDialog={handleOpenRemoveDialog}
+                                noMatchesFound={noMatchesFound}
                         />
 
                         <StudentDialog

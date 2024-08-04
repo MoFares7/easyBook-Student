@@ -54,5 +54,6 @@
   "Logout": "تسجيل الخروج",
   "LoginfailedPleasetryagain": "حدث خطأ أثناء عملية المصادقة",
   "Sign out": "الخروج من التطبيق",
+  "NotFoundanyResult": "لا يوجد نتائج",
   "Are you sure you would like to sign out of your account?": "هل أنت متأكد من تسجيل الخروج"
 }
