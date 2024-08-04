@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import loginImage from '../../../../assets/images/login_image.png';
 import BasicLayout from '../components/BasicLayout';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import colors from './../../../../assets/theme/base/colors';
 import borders from '../../../../assets/theme/base/borders';
 import typography from './../../../../assets/theme/base/typography';
 import MDTextField from '../../../../items/MDTextField';
 import MDBox from '../../../../items/MDBox/MDBox';
-import { useDispatch, useSelector } from 'react-redux';
-import { authLogin } from '../../services/login_service';
-import { useNavigate } from 'react-router-dom';
 import MDTypography from '../../../../items/MDTypography';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { getValue } from '../../../../core/storage/storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { authLogin } from '../../services/login_service';
+import { useNavigate } from 'react-router-dom';
+import { getValue, setValue } from '../../../../core/storage/storage';
+import MDDropDownField from '../../../../items/MDDropDown';
+import { t } from 'i18next';
 
 function Basic() {
   const dispatch = useDispatch();
@@ -28,6 +28,10 @@ function Basic() {
   const [errors, setErrors] = useState({ username: '', password: '' });
   const { loading, error } = useSelector(state => state.authLogin);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [language, setLanguage] = useState(getValue('lang') || 'en');
+
+  useEffect(() => {
+  }, [language]);
 
   const handleLoginToSystem = (e) => {
     e.preventDefault();
@@ -70,6 +74,13 @@ function Basic() {
     setSnackbarOpen(false);
   };
 
+  const handleLanguageChange = (event) => {
+    const selectedLanguage = event.target.value;
+    setLanguage(selectedLanguage);
+    setValue('lang', selectedLanguage);
+    window.location.reload();
+  };
+
   return (
     <BasicLayout>
       <ThemeProvider theme={createTheme()}>
@@ -82,10 +93,33 @@ function Basic() {
             md={5}
             sx={{
               display: 'flex',
+              flexDirection: 'column',
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
+              position: 'relative',
             }}
           >
+            <MDBox
+              sx={{
+                position: 'absolute',
+                top: 16,
+                left: 16,
+                zIndex: 1, 
+                width: '30%',
+              }}
+            >
+              <MDDropDownField
+                margin={1}
+                backgroundColor={colors.white.main}
+                isFulWidth={false}
+                value={language}
+                onChange={handleLanguageChange}
+                options={[
+                  { value: 'en', label: 'English' },
+                  { value: 'ar', label: 'Arabic' }
+                ]}
+              />
+            </MDBox>
             <MDBox
               sx={{
                 backgroundImage: `url(${loginImage})`,
@@ -128,30 +162,28 @@ function Basic() {
               }}
             >
               <MDTypography typography={typography.h2} color={colors.black.main} fontWeight={600}>
-                Login
+                {t("Login")}
               </MDTypography>
 
               <MDBox component="form" noValidate onSubmit={handleLoginToSystem} sx={{ mt: 1 }}>
                 <MDTextField
+                  margin={'1rem 0'}
                   isFulWidth={true}
                   value={username}
-                  label="Username"
-                  hintText="username"
+                  label={t("username")}
                   onChange={(e) => setUsername(e.target.value)}
                   error={!!errors.username}
-                  helperText={errors.username}
                 />
                 <MDBox sx={{ p: 1 }} />
 
                 <MDTextField
+                  margin={'1rem 0'}
                   isFulWidth={true}
                   value={password}
-                  label="Password"
-                  hintText="password"
+                  label={t("password")}
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
                   error={!!errors.password}
-                  helperText={errors.password}
                 />
 
                 <Button
@@ -167,7 +199,7 @@ function Basic() {
                   }}
                   disabled={loading}
                 >
-                  {loading ? 'Signing In...' : 'Sign In'}
+                  {loading ? t('Signing In...') :  t('SignIn') }
                 </Button>
               </MDBox>
             </MDBox>

@@ -1,13 +1,6 @@
-
 import { forwardRef } from "react";
-
-// prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
-
-// Custom styles for MDTypography
 import MDTypographyRoot from "../../items/MDTypography/MDTypographyRoot";
-
-// Material Dashboard 2 React contexts
 import { useMaterialUIController } from "../../context";
 
 const MDTypography = forwardRef(
@@ -38,7 +31,6 @@ const MDTypography = forwardRef(
   }
 );
 
-// Setting default values for the props of MDTypography
 MDTypography.defaultProps = {
   color: "dark",
   fontWeight: false,
@@ -48,7 +40,6 @@ MDTypography.defaultProps = {
   opacity: 1,
 };
 
-// Typechecking props for the MDTypography
 MDTypography.propTypes = {
   color: PropTypes.oneOf([
     "inherit",

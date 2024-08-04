@@ -1,0 +1,57 @@
+{
+  "studentData": "بيانات الطالب",
+  "addStudent": "إضافة طالب",
+  "filterBy": "تصفية حسب:",
+  "searchHint": "بحث",
+  "chooseHint": "اختر",
+  "none": "لا شيء",
+  "equalTo": "مساوي ل",
+  "greaterThan": "أكبر من",
+  "lessThan": "أقل من",
+  "first_name": "الاسم الأول",
+  "last_name": "اسم العائلة",
+  "birth_date": "تاريخ الميلاد",
+  "educational_level": "المستوى التعليمي",
+  "country": "البلد",
+  "city": "المدينة",
+  "mobile": "الهاتف المحمول",
+  "gender": "الجنس",
+  "note": "ملاحظة",
+  "modify": "تعديل",
+  "add_student": "إضافة طالب",
+  "cancel": "إلغاء",
+  "edit_student": "تعديل الطالب",
+  "validation": {
+    "required": "الحقل مطلوب"
+  },
+  "table": {
+    "firstName": "الاسم الأول",
+    "lastName": "الاسم الأخير",
+    "birthDate": "تاريخ الميلاد",
+    "educationLevel": "المستوى التعليمي",
+    "gender": "الجنس",
+    "country": "الدولة",
+    "city": "المدينة",
+    "mobileNumber": "رقم الهاتف",
+    "notes": "ملاحظات",
+    "actions": "الإجراءات"
+  },
+  "pagination": {
+    "rowsPerPage": "عدد الصفوف لكل صفحة:"
+  },
+  "dialogs": {
+    "editTitle": "تعديل معلومات الطالب",
+    "deleteTitle": "هل أنت متأكد؟",
+    "deleteSubtitle": "هل أنت متأكد أنك تريد حذف معلومات هذا الطالب؟",
+    "deleteNoteTitle": "لا يمكن التراجع عن هذا الإجراء.",
+    "deleteButton": "حذف"
+  },
+  "Login": "تسجيل الدخول",
+  "username": "اسم المستخدم",
+  "password": "كلمة المرور",
+  "SignIn": "تسجيل الدخول",
+  "Signing In...": "جاري تسجيل الدخول",
+  "Logout": "تسجيل الخروج",
+  "Sign out": "الخروج من التطبيق",
+  "Are you sure you would like to sign out of your account?": "هل أنت متأكد من تسجيل الخروج"
+}

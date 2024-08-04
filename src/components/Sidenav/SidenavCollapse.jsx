@@ -8,12 +8,12 @@ import { collapseItem, collapseIconBox, collapseIcon, collapseText } from "../..
 import { useMaterialUIController } from "../../context";
 import colors from "../../assets/theme/base/colors";
 
-function SidenavCollapse({ icon, name, active, ...rest }) {
+function SidenavCollapse({ isNavigate, onClick, icon, name, active, ...rest }) {
   const [controller] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
 
   return (
-    <ListItem component="li" sx={{ width: '100%', padding: 0, textDecoration: 'none', }}> 
+    <ListItem component="li" onClick={onClick} sx={{ width: '100%', padding: 0, textDecoration: 'none' ,mt:2 }}>
       <MDBox
         {...rest}
         sx={(theme) =>
@@ -26,6 +26,22 @@ function SidenavCollapse({ icon, name, active, ...rest }) {
           })
         }
       >
+        {isNavigate ?
+          <MDBox
+            sx={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              height: '100%',
+              width: '3%',
+              backgroundColor: colors.primary.state,
+            }}
+          >
+          </MDBox> :
+          <MDBox />
+        }
+
+
         <ListItemIcon
           sx={(theme) =>
             collapseIconBox(theme, { transparentSidenav, whiteSidenav, darkMode, active })
@@ -48,15 +64,11 @@ function SidenavCollapse({ icon, name, active, ...rest }) {
               active,
             }),
             '& .MuiListItemText-primary': {
-              textDecoration: 'none', // Ensure no underline
-              color: colors.black.main,
               textDecoration: 'none',
-
-            }
+              color: colors.black.main,
+            },
           })}
         />
-
-
       </MDBox>
     </ListItem>
   );

@@ -1,6 +1,7 @@
 import Drawer from "@mui/material/Drawer";
 import { styled } from "@mui/material/styles";
 import colors from "../../assets/theme/base/colors";
+import { getValue } from "../../core/storage/storage";
 
 export default styled(Drawer)(({ theme, ownerState }) => {
   const { palette, boxShadows, transitions, breakpoints, functions } = theme;
@@ -33,7 +34,8 @@ export default styled(Drawer)(({ theme, ownerState }) => {
     [breakpoints.up("xl")]: {
       boxShadow: transparentSidenav ? "none" : xxl,
       marginBottom: transparentSidenav ? 0 : "inherit",
-      left: "0",
+      left: getValue('lang') === 'ltr' ? "0" : "auto",
+      right: getValue('lang') === 'rtl' ? "0" : "auto",
       width: sidebarWidth,
       transform: "translateX(0)",
       transition: transitions.create(["width", "background-color"], {

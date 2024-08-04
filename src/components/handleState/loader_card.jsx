@@ -1,6 +1,6 @@
 import Lottie from 'lottie-react'
 import React from 'react'
-import loader from '../../assets/lottie/loader.json';
+import loader from '../../assets/lotties/loader.json';
 import MDBox from '../../items/MDBox/MDBox';
 
 const LoaderCard = () => {

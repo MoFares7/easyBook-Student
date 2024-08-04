@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../../core/network/api'
 
-export const getStudentsService = createAsyncThunk(
-        'Student/GetAll',
+export const getGendersService = createAsyncThunk(
+        'Settings/GetAllGenders',
         async () => {
                 try {
-                        const response = await api.get(`Student/GetAll`);
+                        const response = await api.get(`Settings/GetAllGenders`);
                         return response.data;
                 } catch (error) {
                         throw Error(error.response.data.message);
@@ -13,29 +13,29 @@ export const getStudentsService = createAsyncThunk(
         }
 );
 
-const getStudentsSlice = createSlice({
-        name: 'getStudentsService',
+const getGendersSlice = createSlice({
+        name: 'getGendersService',
         initialState: {
-                data: null,
+                data: [],
                 error: null,
                 loading: false,
         },
         reducers: {},
         extraReducers: (builder) => {
                 builder
-                        .addCase(getStudentsService.pending, (state) => {
+                        .addCase(getGendersService.pending, (state) => {
                                 state.loading = true;
                                 state.error = null;
                         })
-                        .addCase(getStudentsService.fulfilled, (state, action) => {
+                        .addCase(getGendersService.fulfilled, (state, action) => {
                                 state.loading = false;
                                 state.data = action.payload;
                         })
-                        .addCase(getStudentsService.rejected, (state, action) => {
+                        .addCase(getGendersService.rejected, (state, action) => {
                                 state.loading = false;
                                 state.error = action.error.message;
                         });
         },
 });
 
-export default getStudentsSlice.reducer;
+export default getGendersSlice.reducer;

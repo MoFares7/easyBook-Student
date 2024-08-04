@@ -30,7 +30,7 @@ const colors = {
 
   secondary: {
     main: "#F5F5F5",
-    focus: "#8f93a9",
+    focus: "#8B909A",
   },
 
   info: {
@@ -49,7 +49,7 @@ const colors = {
   },
 
   error: {
-    main: "#F44335",
+    main: "#F34235",
     focus: "#f65f53",
   },
 

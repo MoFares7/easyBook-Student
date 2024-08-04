@@ -1,41 +1,40 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../../core/network/api'
+import api from '../../../core/network/api';
 
-export const getStudentsService = createAsyncThunk(
-        'Student/GetAll',
+export const getGradesService = createAsyncThunk(
+        'getGradesService/getAll',
         async () => {
                 try {
-                        const response = await api.get(`Student/GetAll`);
+                        const response = await api.get(`Settings/GetAllGrades`);
                         return response.data;
                 } catch (error) {
-                        throw Error(error.response.data.message);
+                        throw new Error(error.response?.data?.message || 'Failed to fetch grades');
                 }
         }
 );
 
-const getStudentsSlice = createSlice({
-        name: 'getStudentsService',
+const getGradesSlice = createSlice({
+        name: 'getGradesService',
         initialState: {
-                data: null,
+                data: [],
                 error: null,
                 loading: false,
         },
-        reducers: {},
         extraReducers: (builder) => {
                 builder
-                        .addCase(getStudentsService.pending, (state) => {
+                        .addCase(getGradesService.pending, (state) => {
                                 state.loading = true;
                                 state.error = null;
                         })
-                        .addCase(getStudentsService.fulfilled, (state, action) => {
+                        .addCase(getGradesService.fulfilled, (state, action) => {
                                 state.loading = false;
                                 state.data = action.payload;
                         })
-                        .addCase(getStudentsService.rejected, (state, action) => {
+                        .addCase(getGradesService.rejected, (state, action) => {
                                 state.loading = false;
                                 state.error = action.error.message;
                         });
         },
 });
 
-export default getStudentsSlice.reducer;
+export default getGradesSlice.reducer;

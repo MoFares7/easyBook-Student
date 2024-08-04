@@ -15,6 +15,7 @@ import {
   setMiniSidenav,
   setTransparentSidenav,
   setWhiteSidenav,
+  setDirection
 } from "../../context";
 import { CloseOutlined } from "@mui/icons-material";
 import typography from './../../assets/theme/base/typography';
@@ -50,8 +51,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
-  // Render all the routes from the routes.js (All the visible items on the Sidenav)
-  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
+  const renderRoutes = routes.map(({ isNavigate, onClick, type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;
 
     if (type === "collapse") {
@@ -61,22 +61,24 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           key={key}
           target="_blank"
           rel="noreferrer"
-          sx={{ textDecoration: "none" }} // Remove underline from Link
+          sx={{ textDecoration: "none" }}
         >
           <SidenavCollapse
             name={name}
             icon={icon}
             active={key === collapseName}
             noCollapse={noCollapse}
+            isNavigate={isNavigate}
+            onClick={onClick}
           />
         </Link>
       ) : (
         <NavLink
           key={key}
           to={route}
-          style={{ textDecoration: "none" }} // Remove underline from NavLink
+          style={{ textDecoration: "none" }}
         >
-          <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
+            <SidenavCollapse isNavigate={isNavigate} onClick={onClick} name={name} icon={icon} active={key === collapseName} />
         </NavLink>
       );
     } else if (type === "title") {

@@ -1,6 +1,6 @@
 import Lottie from 'lottie-react'
 import React from 'react'
-import empty from '../../assets/lottie/empty.json';
+import empty from '../../assets/lotties/empty.json';
 import MDTypography from '../../items/MDTypography';
 import typography from './../../assets/theme/base/typography';
 import MDBox from '../../items/MDBox/MDBox';

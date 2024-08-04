@@ -1,6 +1,6 @@
 import Lottie from 'lottie-react'
 import React from 'react'
-import error from '../../assets/lottie/error.json';
+import error from '../../assets/lotties/error.json';
 import MDTypography from '../../items/MDTypography';
 import typography from './../../assets/theme/base/typography';
 import MDBox from '../../items/MDBox/MDBox';

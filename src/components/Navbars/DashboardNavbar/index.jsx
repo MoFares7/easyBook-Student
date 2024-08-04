@@ -1,36 +1,24 @@
 import { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { AppBar, Toolbar, IconButton } from "@mui/material";
 import PropTypes from "prop-types";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
 import MDBox from "../../../items/MDBox/MDBox";
 import MDTypography from "../../../items/MDTypography";
-import {
-  navbar,
-  navbarContainer,
-  navbarRow,
-  navbarIconButton,
-  navbarMobileMenu,
-} from "./styles";
-import {
-  useMaterialUIController,
-  setTransparentNavbar,
-  setMiniSidenav,
-  setOpenConfigurator,
-} from "../../../context";
+import { navbar, navbarContainer, navbarRow, navbarMobileMenu } from "./styles";
+import { useMaterialUIController, setTransparentNavbar, setMiniSidenav, setDirection } from "../../../context";
 import man from '../../../assets/images/man.png';
-import { Home, MenuRounded, Settings } from "@mui/icons-material";
-import { MenuItem, MenuList } from "@mui/material";
-import typography from './../../../assets/theme/base/typography';
+import MDDropDownField from "../../../items/MDDropDown";
+import i18n from '../../../../i18..js';
+import { List } from "@mui/icons-material";
+import { getValue, setValue } from "../../../core/storage/storage.jsx";
 
-function DashboardNavbar({ firstOption, secondOption, thirdOption, absolute, light, isMini }) {
+function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
-  const [openMenu, setOpenMenu] = useState(false);
-  const route = useLocation().pathname.split("/").slice(1);
+  const { miniSidenav, transparentNavbar, fixedNavbar, darkMode } = controller;
+  const [language, setLanguage] = useState(getValue('lang') || 'en');
+
+  useEffect(() => {
+  }, [language]);
 
   useEffect(() => {
     if (fixedNavbar) {
@@ -51,37 +39,21 @@ function DashboardNavbar({ firstOption, secondOption, thirdOption, absolute, lig
   }, [dispatch, fixedNavbar]);
 
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
-  const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
-  const handleCloseMenu = () => setOpenMenu(false);
 
-  const renderMenu = ({ firstOption, secondOption, thirdOption }) => (
-    <Menu
-      anchorEl={openMenu}
-      anchorReference={null}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      open={Boolean(openMenu)}
-      onClose={handleCloseMenu}
-      sx={{ mt: 1 }}
-    >
-      {firstOption} {secondOption} {thirdOption}
-    </Menu>
-  );
+  // const handleLanguageChange = (event) => {
+  
+  //   // i18n.changeLanguage(selectedLanguage);
 
-  const iconsStyle = ({ palette: { dark, white, text }, functions: { rgba } }) => ({
-    color: () => {
-      let colorValue = light || darkMode ? white.main : dark.main;
+  //   // const newDirection = selectedLanguage === 'ar' ? 'rtl' : 'ltr';
+  //   // setDirection(dispatch, newDirection);
+  // };
 
-      if (transparentNavbar && !light) {
-        colorValue = darkMode ? rgba(text.main, 0.6) : text.main;
-      }
-
-      return colorValue;
-    },
-  });
+  const handleLanguageChange = (event) => {
+    const selectedLanguage = event.target.value;
+    setLanguage(selectedLanguage);
+    setValue('lang', selectedLanguage);
+    window.location.reload();
+  };
 
   return (
     <AppBar
@@ -92,29 +64,65 @@ function DashboardNavbar({ firstOption, secondOption, thirdOption, absolute, lig
       <Toolbar sx={(theme) => navbarContainer(theme)}>
         <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })} />
         {isMini ? null : (
-          <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <MDBox color={light ? "white" : "inherit"} display="flex" alignItems="center">
-              <MDTypography variant="caption" mr={1}>
-                William Jaspornet
-              </MDTypography>
-              <MDBox
-                component="img"
-                src={man}
-                alt="William Jaspornet"
-                width="40px"
-                height="40px"
-                sx={{ borderRadius: '30%' }} 
-              />
+          <MDBox
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+              justifyContent: 'space-between'
+            }}
+          >
+            {miniSidenav
+              ?
               <IconButton
                 size="small"
                 disableRipple
-                color="inherit"
-                sx={navbarMobileMenu}
+                sx={{
+                  ...navbarMobileMenu,
+                  color: light ? "primary" : "secondary",
+                }}
                 onClick={handleMiniSidenav}
               >
-                {miniSidenav ? <MenuList color={light ? "white" : "primary"} /> : <MenuList color={light ? "white" : "primary"} />}
+                {miniSidenav ? <List /> : <MDBox />}
               </IconButton>
-            </MDBox>
+              :
+              <MDBox />
+            }
+
+            <MDTypography
+              variant="caption"
+              sx={{
+                flexGrow: 1,
+                textAlign: 'end',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                px: '10px'
+              }}
+            >
+              William Jaspornet
+            </MDTypography>
+
+            <MDBox
+              component="img"
+              src={man}
+              alt="William Jaspornet"
+              width="40px"
+              height="40px"
+              sx={{ borderRadius: '30%' }}
+            />
+
+            <MDDropDownField
+              margin={1}
+              isFulWidth={false}
+              width={miniSidenav ? '30%' : '10%'}
+              value={language}
+              onChange={handleLanguageChange}
+              options={[
+                { value: 'en', label: 'English' },
+                { value: 'ar', label: 'Arabic' }
+              ]}
+            />
           </MDBox>
         )}
       </Toolbar>

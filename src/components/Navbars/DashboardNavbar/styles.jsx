@@ -31,10 +31,9 @@ function navbar(theme, ownerState) {
       return color;
     },
     top: absolute ? 0 : 0,
-    height: 63,
+    height: 73,
     display: "grid",
     alignItems: "center",
-    paddingTop: pxToRem(8),
     paddingBottom: pxToRem(8),
     paddingRight: absolute ? pxToRem(8) : 0,
     paddingLeft: absolute ? pxToRem(16) : 0,
@@ -104,7 +103,6 @@ const navbarIconButton = ({ typography: { size }, breakpoints }) => ({
     [breakpoints.up("sm")]: {
       display: "inline-block",
       lineHeight: 1.2,
-      // ml: 0.5,
     },
   },
 });

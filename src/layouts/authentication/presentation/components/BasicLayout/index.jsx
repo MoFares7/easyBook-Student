@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import Grid from "@mui/material/Grid";
 import MDBox from "../../../../../items/MDBox/MDBox";
 import PageLayout from "../../../../../components/LayoutContainers/PageLayout";
 

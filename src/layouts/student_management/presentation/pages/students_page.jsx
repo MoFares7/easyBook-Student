@@ -1,88 +1,138 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import DashboardLayout from './../../../../components/LayoutContainers/DashboardLayout/index';
 import DashboardNavbar from './../../../../components/Navbars/DashboardNavbar/index';
-import { Box, Divider, Icon } from '@mui/material';
-import borders from '../../../../assets/theme/base/borders';
-import colors from '../../../../assets/theme/base/colors';
-import MDTypography from '../../../../items/MDTypography';
-import typography from './../../../../assets/theme/base/typography';
-import { AddOutlined } from '@mui/icons-material';
-import PrimaryButton from '../../../../items/MDButton';
-import StudentsTable from '../../../../components/Tables/StudentsTable';
-import MDTextField from '../../../../items/MDTextField';
-import filter from '../../../../assets/icons/Filter.svg'
-import { getValue } from '../../../../core/storage/storage';
+import StudentDialog from '../components/student_dialog';
+import { getStudentsService } from '../../services/get_student_service';
+import debounce from 'lodash.debounce';
+import StudentDataCard from '../components/student_data_card';
 
 const StudentsPage = () => {
-        const [dateFilter, setDateFilter] = React.useState('');
+        const { t } = useTranslation();
+        const dispatch = useDispatch();
+        const [dateFilter, setDateFilter] = useState('');
+        const [filterType, setFilterType] = useState('None');
+        const [searchTerm, setSearchTerm] = useState('');
+        const [open, setOpen] = useState(false);
+        const [removeDialogOpen, setRemoveDialogOpen] = useState(false);
+        const [selectedStudent, setSelectedStudent] = useState(null);
+        const [filteredStudents, setFilteredStudents] = useState([]);
+
+        const studentsState = useSelector((state) => state.getStudentsService);
+        const { data: students, loading, error } = studentsState;
+
+        useEffect(() => {
+                dispatch(getStudentsService());
+        }, [dispatch]);
+
+        const handleSearch = useCallback(
+                debounce((query) => {
+                        if (students) {
+                                const lowercasedQuery = query.toLowerCase();
+                                const filtered = students.filter(student =>
+                                        student.firstName.toLowerCase().includes(lowercasedQuery) ||
+                                        student.lastName.toLowerCase().includes(lowercasedQuery)
+                                );
+                                setFilteredStudents(filtered);
+                        }
+                }, 2000),
+                [students]
+        );
+
+        const handleSearchChange = (event) => {
+                const { value } = event.target;
+                setSearchTerm(value);
+                handleSearch(value);
+        };
 
         const handleDateChange = (event) => {
                 setDateFilter(event.target.value);
         };
 
-        console.log(getValue('token'))
+        const handleClickOpen = () => {
+                setOpen(true);
+        };
+
+        const handleClose = () => {
+                setOpen(false);
+        };
+
+        const handleOpenRemoveDialog = (student) => {
+                setSelectedStudent(student);
+                setRemoveDialogOpen(true);
+        };
+
+        const formatDate = (date) => {
+                if (!date) return '';
+                const d = new Date(date);
+                if (isNaN(d.getTime())) return '';
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+        };
+
+        useEffect(() => {
+                if (students) {
+                        let filtered = students;
+
+                        if (searchTerm) {
+                                const lowercasedQuery = searchTerm.toLowerCase();
+                                filtered = filtered.filter(student =>
+                                        student.firstName.toLowerCase().includes(lowercasedQuery) ||
+                                        student.lastName.toLowerCase().includes(lowercasedQuery)
+                                );
+                        }
+
+                        if (dateFilter && filterType !== 'None') {
+                                const filterDate = new Date(dateFilter);
+                                filtered = filtered.filter(student => {
+                                        const studentDate = new Date(student.birthDate);
+
+                                        switch (filterType) {
+                                                case 'Equal to':
+                                                        return studentDate.toDateString() === filterDate.toDateString();
+                                                case 'Greater than':
+                                                        return studentDate > filterDate;
+                                                case 'Less than':
+                                                        return studentDate < filterDate;
+                                                default:
+                                                        return true;
+                                        }
+                                });
+                        }
+
+                        setFilteredStudents(filtered);
+                }
+        }, [students, searchTerm, dateFilter, filterType]);
+
         return (
                 <DashboardLayout>
                         <DashboardNavbar />
-                        <Box sx={{
-                                p: 1,
-                                m: 3,
-                                borderRadius: borders.borderRadius.lg,
-                                backgroundColor: colors.white.main
-                        }}>
-                                {/* //! row add and title */}
-                                <Box sx={{
-                                        display: 'flex',
-                                        p: 1,
-                                        justifyContent: 'space-between'
-                                }}>
-                                        <MDTypography typography={typography.body1}>Student's Data</MDTypography>
-                                        <PrimaryButton
-                                                title={" Add Student"}
-                                                backgroundColor={colors.primary.state}
-                                                colorTitle={colors.white.main}
-                                                hPadding={0.5}
-                                                wPadding={1}
-                                                icon={<AddOutlined />}
-                                        />
-                                </Box>
-                                {/* //! row filter */}
-                                <Box sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        mx: 1
-                                }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                                <Icon>
-                                                        <img src={filter} alt="Filter" style={{ width: 25, height: 25 }} />
-                                                </Icon>
-                                                <MDTypography typography={typography.body2} sx={{ color: colors.primary.state }}>Filter by:</MDTypography>
-                                        </Box>
-                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                                {/* Search Text Field */}
-                                                <MDTextField
-                                                        isFulWidth={false}
-                                                        hintText={"Search by first name, last name"}
-                                                        height={'3%'}
-                                                />
-                                                {/* Date Filter */}
-                                                <MDTextField
-                                                        isFulWidth={false}
-                                                        value={dateFilter}
-                                                        onChange={handleDateChange}
-                                                        type="date"
-                                                />
-                                        </Box>
-                                </Box>
 
-                                <Divider sx={{ my: 2 }} />
+                        <StudentDataCard
+                                t={t}
+                                handleClickOpen={handleClickOpen}
+                                handleSearchChange={handleSearchChange}
+                                handleDateChange={handleDateChange}
+                                formatDate={formatDate}
+                                dateFilter={dateFilter}
+                                filterType={filterType}
+                                setFilterType={setFilterType}
+                                filteredStudents={filteredStudents}
+                                students={students}
+                                loading={loading}
+                                error={error}
+                                handleOpenRemoveDialog={handleOpenRemoveDialog}
+                        />
 
-                                <Box>
-                                        <StudentsTable />
-                                </Box>
-                        </Box>
+                        <StudentDialog
+                                open={open}
+                                handleClose={handleClose}
+                        />
                 </DashboardLayout>
         );
-}
+};
 
 export default StudentsPage;
