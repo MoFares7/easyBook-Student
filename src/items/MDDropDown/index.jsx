@@ -62,6 +62,12 @@ const MDDropDownField = ({
                                                 '& .MuiSelect-select': {
                                                         fontSize: '0.875rem', 
                                                 },
+                                                '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                                        borderColor: colors.primary.state,
+                                                },
+                                                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                                        borderColor: colors.primary.state,
+                                                },
                                         },
                                 }}
                                 inputProps={{

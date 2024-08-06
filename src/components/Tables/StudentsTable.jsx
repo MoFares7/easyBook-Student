@@ -117,7 +117,7 @@ export default function StudentsTable({ students, loading, error, onDelete }) {
                 if (selectedStudent && selectedStudent.id) {
                         dispatch(removeStudentService({ Id: selectedStudent.id }))
                                 .then(() => {
-                                        onDelete(selectedStudent.id);
+                                        // onDelete(selectedStudent.id);
                                         dispatch(getStudentsService());
                                         handleCloseDeleteDialog();
                                 })
@@ -135,8 +135,8 @@ export default function StudentsTable({ students, loading, error, onDelete }) {
                 return <ErrorCard />;
         }
 
-        if (!students || students.length === 0) {
-                return <EmptyCard />;
+        if (!students && !loading || students.length === 0 && !loading) {
+                // return <EmptyCard />;
         }
 
         const language = getValue("lang") || 'en';

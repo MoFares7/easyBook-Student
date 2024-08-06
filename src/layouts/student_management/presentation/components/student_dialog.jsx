@@ -27,7 +27,11 @@ const StudentDialog = ({ open, handleClose, student }) => {
         const [studentMobile, setStudentMobile] = useState('');
         const [studentGender, setStudentGender] = useState('');
         const [studentNote, setStudentNote] = useState('');
-        const [errors, setErrors] = useState({});
+        const [errors, setErrors] = useState({
+                studentFirstName: '', studentLastName: '', studentBirthDate: '',
+                studentCountry: '', studentCity: '', studentEducationalLevel: '', studentGender: '',
+                studentMobile: '',
+        });
         const [isEditing, setIsEditing] = useState(false);
 
         const dispatch = useDispatch();
@@ -68,38 +72,42 @@ const StudentDialog = ({ open, handleClose, student }) => {
                 e.preventDefault();
 
                 let valid = true;
-                let newErrors = {};
+                let newErrors = {
+                        studentFirstName: '', studentLastName: '', studentBirthDate: '',
+                        studentCountry: '', studentCity: '', studentEducationalLevel: '', studentGender: '',
+                        studentMobile: '',
+                };
 
                 if (!studentFirstName) {
-                        newErrors.studentFirstName = t('validation.required', { field: t('first_name') });
+                        newErrors.studentFirstName = 'required';
                         valid = false;
                 }
                 if (!studentLastName) {
-                        newErrors.studentLastName = t('validation.required', { field: t('last_name') });
+                        newErrors.studentLastName = 'required';
                         valid = false;
                 }
                 if (!studentBirthDate) {
-                        newErrors.studentBirthDate = t('validation.required', { field: t('birth_date') });
+                        newErrors.studentBirthDate = 'required';
                         valid = false;
                 }
                 if (!studentCountry) {
-                        newErrors.studentCountry = t('validation.required', { field: t('country') });
+                        newErrors.studentCountry = 'required';
                         valid = false;
                 }
                 if (!studentCity) {
-                        newErrors.studentCity = t('validation.required', { field: t('city') });
+                        newErrors.studentCity = 'required';
                         valid = false;
                 }
                 if (!studentEducationalLevel) {
-                        newErrors.studentEducationalLevel = t('validation.required', { field: t('educational_level') });
+                        newErrors.studentEducationalLevel = 'required';
                         valid = false;
                 }
                 if (!studentGender) {
-                        newErrors.studentGender = t('validation.required', { field: t('gender') });
+                        newErrors.studentGender = 'required';
                         valid = false;
                 }
                 if (!studentMobile) {
-                        newErrors.studentMobile = t('validation.required', { field: t('mobile') });
+                        newErrors.studentMobile = 'required';
                         valid = false;
                 }
 
@@ -198,10 +206,11 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                                         isFulWidth={true}
                                                         label={translations.first_name}
                                                         labelColor={colors.black.main}
-                                                        error={errors.studentFirstName}
                                                         value={studentFirstName}
                                                         onChange={(e) => setStudentFirstName(e.target.value)}
+                                                        error={!!errors.studentFirstName}
                                                 />
+
                                         </MDBox>
                                         <MDBox sx={{ mx: 1, width: '50%' }}>
                                                 <MDTextField
@@ -230,6 +239,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                         </MDBox>
                                         <MDBox sx={{ mx: 1, width: '50%' }}>
                                                 <MDDropDownField
+                                                        backgroundColor={colors.secondary.main}
                                                         isFulWidth={true}
                                                         margin={'1rem 0'}
                                                         isFullWidth={true}
@@ -245,6 +255,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                 <MDBox sx={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
                                         <MDBox sx={{ mx: 1, width: '50%' }}>
                                                 <MDDropDownField
+                                                        backgroundColor={colors.secondary.main}
                                                         isFulWidth={true}
                                                         margin={'1.1rem 0'}
                                                         isFullWidth={true}
@@ -258,6 +269,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                         </MDBox>
                                         <MDBox sx={{ mx: 1, width: '50%' }}>
                                                 <MDDropDownField
+                                                        backgroundColor={colors.secondary.main}
                                                         isFulWidth={true}
                                                         margin={'1.1rem 0'}
                                                         isFullWidth={true}
@@ -285,6 +297,7 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                         </MDBox>
                                         <MDBox sx={{ mx: 1, width: '50%' }}>
                                                 <MDDropDownField
+                                                        backgroundColor={colors.secondary.main}
                                                         isFulWidth={true}
                                                         margin={'1rem 0'}
                                                         isFullWidth={true}
@@ -300,10 +313,10 @@ const StudentDialog = ({ open, handleClose, student }) => {
                                 <MDBox sx={{ mx: 1 }}>
                                         <MDTextField
                                                 margin={'1rem 0'}
+                                                type="Multiline"
                                                 isFulWidth={true}
                                                 label={translations.note}
                                                 labelColor={colors.black.main}
-                                                error={errors.studentNote}
                                                 value={studentNote}
                                                 onChange={(e) => setStudentNote(e.target.value)}
                                         />

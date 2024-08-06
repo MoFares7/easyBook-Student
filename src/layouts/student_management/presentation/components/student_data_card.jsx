@@ -16,6 +16,7 @@ import { getValue } from '../../../../core/storage/storage';
 import arTranslations from '../../../../assets/translation/ar.json';
 import enTranslations from '../../../../assets/translation/en.json';
 import EmptyCard from '../../../../components/handleState/empty_card';
+import LoaderCard from '../../../../components/handleState/loader_card';
 
 const StudentDataCard = ({
         handleClickOpen,
@@ -107,13 +108,14 @@ const StudentDataCard = ({
 
                                 <MDBox>
                                         {noMatchesFound ? (
-                                                <EmptyCard
-                                                        message={translations.NotFoundanyResult}
-                                                />
+                                                <EmptyCard message={translations.NotFoundanyResult} />
+                                        ) : loading ? (
+                                                <LoaderCard />
                                         ) : (
                                                 <StudentsTable students={filteredStudents} handleOpenRemoveDialog={handleOpenRemoveDialog} />
                                         )}
                                 </MDBox>
+
                         </MDBox>
                 </AnimatedCard>
         );

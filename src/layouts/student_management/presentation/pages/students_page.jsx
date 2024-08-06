@@ -17,9 +17,8 @@ const StudentsPage = () => {
         const [selectedStudent, setSelectedStudent] = useState(null);
         const [filteredStudents, setFilteredStudents] = useState([]);
 
-        const studentsState = useSelector((state) => state.getStudentsService);
-        const { data: students, loading, error } = studentsState;
-
+        const { data: students, loading: loading, error } = useSelector((state) => state.getStudentsService);
+   
         useEffect(() => {
                 dispatch(getStudentsService());
         }, [dispatch]);
@@ -146,7 +145,7 @@ const StudentsPage = () => {
                                 setFilterType={handleFilterTypeChange}
                                 filteredStudents={filteredStudents}
                                 students={students}
-                                loading={loading}
+                                // loading={loading}
                                 error={error}
                                 handleOpenRemoveDialog={handleOpenRemoveDialog}
                                 noMatchesFound={noMatchesFound}
